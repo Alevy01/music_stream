@@ -92,23 +92,4 @@ app.get('/serve/:filename', function(req, res){
   });
 });
 
-app.get('/stream', function(req, res){
-  res.header('Content-Type', 'audio/mpeg')
-  var filePath = __dirname + '/site/Views.mp3';
-  var stat = fs.statSync(filePath);
-
-  var readStream = fs.createReadStream(filePath, {highWaterMark : 32 * 1024});
-  // console.log(readStream);
-  readStream.pipe(res);
-
-  readStream.on('data', function(chunk){
-    console.log(chunk.length)
-  })
-
-  readStream.on('end', () =>{
-    res.end();
-  })
-});
-
-
 app.listen(8000);
